@@ -1,0 +1,166 @@
+:root {
+    --bg:      #f0f2f5;
+    --surface: #ffffff;
+    --border:  #e2e6ea;
+    --text:    #1a1d23;
+    --muted:   #6b7280;
+    --accent:  #2563eb;
+    --green:   #16a34a;
+    --red:     #dc2626;
+    --topbar:  #1a1d23;
+    --radius:  8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { font-family: sans-serif; font-size: 14px; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* ── Inputs & labels ─────────────────────────────────────────────────────── */
+
+label { display: block; font-size: .78rem; font-weight: 600; color: var(--muted); margin: .75rem 0 3px; }
+
+input, select {
+    display: block; width: 100%; padding: 8px 11px;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    font-size: .9rem; color: var(--text); background: var(--surface); outline: none;
+}
+
+input:focus, select:focus { border-color: var(--accent); }
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+
+button, .btn {
+    display: inline-block; cursor: pointer; font-size: .88rem;
+    padding: 8px 16px; border-radius: var(--radius);
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    text-decoration: none;
+}
+
+button:hover, .btn:hover { background: var(--bg); }
+
+.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-primary:hover { background: #1d4ed8; border-color: #1d4ed8; }
+
+.btn-outline { background: var(--surface); color: var(--accent); border-color: var(--accent); }
+.btn-outline:hover { background: #eff6ff; }
+
+.btn-sm { padding: 5px 11px; font-size: .8rem; }
+
+/* ── Landing page ────────────────────────────────────────────────────────── */
+
+.top { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 4rem 1rem; gap: 1rem; }
+.top h2 { font-size: 2rem; font-weight: 700; }
+.top p { color: var(--muted); }
+.btn-group { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; margin-top: .5rem; }
+
+.info-box {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.2rem 1.5rem; max-width: 520px; width: 100%; text-align: left;
+}
+.info-box p { margin-bottom: .75rem; }
+
+/* ── Auth box ────────────────────────────────────────────────────────────── */
+
+.box {
+    width: 340px; margin: 80px auto 0; padding: 2rem 1.75rem;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+}
+
+.box h2 { font-size: 1.4rem; margin-bottom: 1.2rem; }
+.box .btn { display: block; width: 100%; text-align: center; margin-top: .75rem; }
+.box a { display: block; text-align: center; margin-top: 1rem; color: var(--accent); font-size: .88rem; text-decoration: none; }
+.box a:hover { text-decoration: underline; }
+.box input, .box select { margin-top: 2px; }
+
+/* ── Topbar ──────────────────────────────────────────────────────────────── */
+
+.topbar {
+    background: var(--topbar); color: #fff; padding: 0 2rem;
+    height: 48px; display: flex; align-items: center; justify-content: space-between;
+}
+
+.topbar-brand { font-weight: 600; font-size: 1rem; }
+.topbar-nav { display: flex; align-items: center; gap: .75rem; font-size: .88rem; }
+.role-badge { font-size: .7rem; padding: 2px 8px; border-radius: 20px; border: 1px solid #555; color: #ccc; }
+
+/* ── Container ───────────────────────────────────────────────────────────── */
+
+.container { max-width: 960px; margin: 1.5rem auto; padding: 0 1.5rem; }
+
+/* ── Summary cards ───────────────────────────────────────────────────────── */
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.2rem; }
+.card-label { font-size: .7rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+.card-val { font-size: 1.4rem; font-weight: 600; }
+.green { color: var(--green); }
+.red   { color: var(--red); }
+
+/* ── Tabs ────────────────────────────────────────────────────────────────── */
+
+.tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+.tab {
+    background: transparent; border: none; border-bottom: 2px solid transparent;
+    color: var(--muted); padding: 8px 16px; font-size: .9rem; cursor: pointer; margin-bottom: -1px;
+}
+.tab:hover { color: var(--text); background: transparent; }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+.tab-panel { display: none; }
+
+/* ── Section header ──────────────────────────────────────────────────────── */
+
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: .6rem; }
+.section-header h3 { font-size: 1rem; }
+
+/* ── Filters ─────────────────────────────────────────────────────────────── */
+
+.filters { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; }
+.filters input, .filters select { width: auto; font-size: .82rem; padding: 5px 8px; }
+
+/* ── Table ───────────────────────────────────────────────────────────────── */
+
+table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); font-size: .88rem; overflow: hidden; }
+th { padding: 9px 12px; text-align: left; font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); border-bottom: 1px solid var(--border); background: #f9fafb; }
+td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+td select { width: auto; padding: 3px 6px; font-size: .8rem; }
+td button { padding: 3px 9px; font-size: .78rem; background: #fff0f0; color: var(--red); border: 1px solid #fecaca; margin: 0; }
+td button:hover { background: #fee2e2; }
+
+/* ── Analytics bars ──────────────────────────────────────────────────────── */
+
+.bar-row { display: flex; align-items: center; gap: .75rem; padding: 7px 0; border-bottom: 1px solid var(--border); }
+.bar-row:last-child { border-bottom: none; }
+.bar-label { font-size: .85rem; width: 110px; flex-shrink: 0; text-transform: capitalize; }
+.bar-bg    { flex: 1; background: var(--border); border-radius: 3px; height: 7px; overflow: hidden; }
+.bar-fill  { height: 100%; background: var(--accent); border-radius: 3px; }
+.bar-val   { font-size: .8rem; width: 80px; text-align: right; color: var(--muted); }
+
+.trend-row   { display: flex; align-items: center; gap: .75rem; padding: 7px 0; border-bottom: 1px solid var(--border); }
+.trend-row:last-child { border-bottom: none; }
+.trend-month { font-size: .82rem; width: 65px; flex-shrink: 0; color: var(--muted); }
+.trend-bars  { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.trend-bar   { height: 6px; border-radius: 3px; min-width: 2px; }
+.trend-vals  { font-size: .72rem; width: 110px; text-align: right; line-height: 1.7; }
+
+/* ── Pills ───────────────────────────────────────────────────────────────── */
+
+.pill         { font-size: .72rem; padding: 2px 8px; border-radius: 20px; }
+.pill-income  { background: #f0fdf4; color: var(--green); }
+.pill-expense { background: #fff5f5; color: var(--red); }
+.amt-income   { color: var(--green); font-weight: 600; }
+.amt-expense  { color: var(--red);   font-weight: 600; }
+
+/* ── Modal ───────────────────────────────────────────────────────────────── */
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: none; align-items: center; justify-content: center; z-index: 50; padding: 1rem; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.8rem; width: 100%; max-width: 400px; }
+.modal h3 { font-size: 1rem; margin-bottom: 1rem; }
+.modal-actions { display: flex; gap: .6rem; justify-content: flex-end; margin-top: 1.2rem; }
+
+/* ── Misc ────────────────────────────────────────────────────────────────── */
+
+.hidden    { display: none !important; }
+.error-msg { color: var(--red); font-size: .82rem; margin-top: .4rem; min-height: 1rem; }
+h3         { font-size: 1rem; margin: 1.2rem 0 .5rem; }

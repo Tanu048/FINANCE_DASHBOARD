@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Finance Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="top">
+    <h2>Finance Dashboard</h2>
+    <p>Role-based finance record management system.</p>
+    <p class="muted">No account yet? Register to get started.</p>
+
+    <div class="btn-group">
+        <a href="/register" class="btn">Register</a>
+        <a href="/login" class="btn btn-outline">Login</a>
+        <a href="/docs" class="btn btn-outline">API Docs</a>
+    </div>
+
+    <div class="info-box">
+        <p><strong>Roles available:</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Access</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Viewer</td><td>View records and summary</td></tr>
+                <tr><td>Analyst</td><td>View records, summary, and analytics</td></tr>
+                <tr><td>Admin</td><td>Full access — create, edit, delete records and manage users</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

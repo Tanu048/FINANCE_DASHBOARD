@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Register — Finance Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="box">
+
+    <h2>Register</h2>
+
+    <input id="name"     type="text"     placeholder="Full name"  autocomplete="name">
+    <input id="username" type="text"     placeholder="Username"   autocomplete="username">
+    <input id="email"    type="email"    placeholder="Email"      autocomplete="email">
+    <input id="password" type="password" placeholder="Password (min 6 chars)" autocomplete="new-password">
+
+    <select id="role" onchange="toggleKeyField()">
+        <option value="viewer">Viewer — view records only</option>
+        <option value="analyst">Analyst — view records and analytics</option>
+        <option value="admin">Admin — full access</option>
+    </select>
+
+    <div id="key-field" style="display:none">
+        <input id="admin_key" type="password" placeholder="Access key required for this role">
+    </div>
+
+    <div id="register-error" class="error-msg"></div>
+
+    <button onclick="register()" class="btn">Register</button>
+
+    <a href="/login">Already have an account? Login</a>
+
+</div>
+
+{% endblock %}

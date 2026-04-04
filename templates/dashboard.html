@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard — Finance Dashboard{% endblock %}
+
+{% block body_attr %}onload="initDashboard()"{% endblock %}
+
+{% block topbar %}
+<div class="topbar">
+    <span class="topbar-brand">Finance Dashboard</span>
+    <div class="topbar-nav">
+        <span id="userInfo"></span>
+        <span id="roleText" class="role-badge"></span>
+    </div>
+    <button onclick="logout()" class="btn btn-sm">Logout</button>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<!-- Summary Cards -->
+<div class="cards">
+    <div class="card">
+        <div class="card-label">Total Income</div>
+        <div class="card-val green" id="sum-income">—</div>
+    </div>
+    <div class="card">
+        <div class="card-label">Total Expenses</div>
+        <div class="card-val red" id="sum-expense">—</div>
+    </div>
+    <div class="card">
+        <div class="card-label">Net Balance</div>
+        <div class="card-val" id="sum-balance">—</div>
+    </div>
+    <div class="card">
+        <div class="card-label">Records</div>
+        <div class="card-val" id="sum-count">—</div>
+    </div>
+</div>
+
+<!-- Tab Navigation -->
+<div class="tabs">
+    <button id="tab-btn-records"   class="tab" onclick="showTab('records')">Records</button>
+    <button id="tab-btn-analytics" class="tab analyst-tab" onclick="showTab('analytics')">Analytics</button>
+    <button id="tab-btn-users"     class="tab admin-tab"   onclick="showTab('users')">Users</button>
+</div>
+
+<!-- Records Tab -->
+<div id="tab-records" class="tab-panel">
+
+    <div class="section-header">
+        <h3>Financial Records</h3>
+        <button class="btn btn-sm admin-only" onclick="openRecordModal()">+ Add Record</button>
+    </div>
+
+    <div class="filters">
+        <select id="f-type" onchange="loadRecords()">
+            <option value="">All types</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+        <input id="f-cat"  type="text" placeholder="Category…" oninput="loadRecords()">
+        <input id="f-from" type="date" onchange="loadRecords()">
+        <input id="f-to"   type="date" onchange="loadRecords()">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Notes</th>
+                <th class="admin-only">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="recordBody"></tbody>
+    </table>
+</div>
+
+<!-- Analytics Tab -->
+<div id="tab-analytics" class="tab-panel">
+
+    <h3>Spending by Category</h3>
+    <div id="cat-rows"></div>
+
+    <h3>Monthly Trends</h3>
+    <div class="filters">
+        <input id="tr-from" type="date" onchange="loadTrends()">
+        <input id="tr-to"   type="date" onchange="loadTrends()">
+    </div>
+    <div style="font-size:.82rem;color:#555;margin-bottom:.5rem">
+        <span style="color:#16a34a">■ Income</span> &nbsp;
+        <span style="color:#dc2626">■ Expense</span>
+    </div>
+    <div id="trend-rows"></div>
+</div>
+
+<!-- Users Tab -->
+<div id="tab-users" class="tab-panel">
+
+    <div class="section-header">
+        <h3>Users</h3>
+        <button class="btn btn-sm" onclick="openUserModal()">+ Add User</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="userBody"></tbody>
+    </table>
+</div>
+
+<!-- Record Modal -->
+<div id="modal-record" class="modal-overlay">
+    <div class="modal">
+        <h3 id="modal-record-title">Add Record</h3>
+
+        <label>Type</label>
+        <select id="m-type">
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+
+        <label>Amount</label>
+        <input id="m-amount" type="number" step="0.01" placeholder="0.00">
+
+        <label>Category</label>
+        <input id="m-cat" type="text" placeholder="e.g. salary, rent, food">
+
+        <label>Date</label>
+        <input id="m-date" type="date">
+
+        <label>Notes (optional)</label>
+        <input id="m-notes" type="text" placeholder="Any notes">
+
+        <div id="record-error" class="error-msg"></div>
+
+        <div class="modal-actions">
+            <button onclick="closeModal('modal-record')">Cancel</button>
+            <button onclick="submitRecord()" class="btn">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- User Modal -->
+<div id="modal-user" class="modal-overlay">
+    <div class="modal">
+        <h3>Create User</h3>
+
+        <label>Full name</label>
+        <input id="u-name" type="text">
+
+        <label>Username</label>
+        <input id="u-username" type="text">
+
+        <label>Email</label>
+        <input id="u-email" type="email">
+
+        <label>Password</label>
+        <input id="u-pass" type="password" placeholder="Min 6 chars">
+
+        <label>Role</label>
+        <select id="u-role">
+            <option value="viewer">Viewer</option>
+            <option value="analyst">Analyst</option>
+            <option value="admin">Admin</option>
+        </select>
+
+        <div id="user-error" class="error-msg"></div>
+
+        <div class="modal-actions">
+            <button onclick="closeModal('modal-user')">Cancel</button>
+            <button onclick="submitUser()" class="btn">Create</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Login — Finance Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="box">
+
+    <h2>Login</h2>
+
+    <input id="username" type="text" placeholder="Username" autocomplete="username">
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+
+    <div id="login-error" class="error-msg"></div>
+
+    <button onclick="login()" class="btn">Login</button>
+
+    <a href="/register">Create an account</a>
+
+</div>
+
+{% endblock %}
