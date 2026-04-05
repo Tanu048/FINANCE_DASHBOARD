@@ -4,7 +4,7 @@ const API = ""
 let editingRecordId = null
 let currentUser = null
 
-// ── Token ─────────────────────────────────────────────────────────────────────
+// Token
 
 function token() { return localStorage.getItem("fd_token") }
 
@@ -13,7 +13,7 @@ function logout() {
     location.href = "/login"
 }
 
-// ── API helper ────────────────────────────────────────────────────────────────
+// API helper 
 
 async function apiFetch(method, path, body = null) {
     const opts = { method, headers: { "Content-Type": "application/json" } }
@@ -29,7 +29,7 @@ async function apiFetch(method, path, body = null) {
     }
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+// Helpers 
 
 function fmt(n) {
     return "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -45,7 +45,7 @@ function clearErr(id) {
     if (el) el.textContent = ""
 }
 
-// ── Register page ─────────────────────────────────────────────────────────────
+// Register page 
 
 function toggleKeyField() {
     const role = document.getElementById("role")?.value
@@ -73,7 +73,7 @@ async function register() {
     location.href = "/login"
 }
 
-// ── Login page ────────────────────────────────────────────────────────────────
+// Login page 
 
 async function login() {
     clearErr("login-error")
@@ -86,7 +86,7 @@ async function login() {
     location.href = "/dashboard"
 }
 
-// ── Dashboard init ────────────────────────────────────────────────────────────
+// Dashboard init
 
 async function initDashboard() {
     const user = await apiFetch("GET", "/auth/me")
@@ -108,7 +108,7 @@ async function initDashboard() {
     showTab("records")   // sets active tab + loads records correctly
 }
 
-// ── Tabs ──────────────────────────────────────────────────────────────────────
+// Tabs 
 
 function showTab(name) {
     // Hide all panels and deactivate all tab buttons
@@ -125,7 +125,7 @@ function showTab(name) {
     if (name === "users")     loadUsers()
 }
 
-// ── Summary ───────────────────────────────────────────────────────────────────
+// Summary 
 
 async function loadSummary() {
     const d = await apiFetch("GET", "/records/summary")
@@ -138,7 +138,7 @@ async function loadSummary() {
     bal.className   = "card-val " + (d.net_balance >= 0 ? "green" : "red")
 }
 
-// ── Records ───────────────────────────────────────────────────────────────────
+// Records 
 
 async function loadRecords() {
     const qs   = []
@@ -223,7 +223,7 @@ async function deleteRecord(id) {
     loadSummary()
 }
 
-// ── Analytics ─────────────────────────────────────────────────────────────────
+// Analytics 
 
 async function loadCategories() {
     const d  = await apiFetch("GET", "/records/by-category")
@@ -266,7 +266,7 @@ async function loadTrends() {
         </div>`).join("")
 }
 
-// ── Users ─────────────────────────────────────────────────────────────────────
+// Users
 
 async function loadUsers() {
     const d    = await apiFetch("GET", "/users/list")
@@ -335,7 +335,7 @@ async function deleteUser(id) {
     else loadUsers()
 }
 
-// ── Modals ────────────────────────────────────────────────────────────────────
+// Modals 
 
 function closeModal(id) { document.getElementById(id).classList.remove("open") }
 

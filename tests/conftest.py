@@ -1,6 +1,6 @@
 import os
 
-# ✅ FORCE ENV VARIABLES FOR TESTS
+# FORCE ENV VARIABLES FOR TESTS
 os.environ["ADMIN_KEY"] = "admin-secret"
 os.environ["ANALYST_KEY"] = "analyst-secret"
 os.environ["SECRET_KEY"] = "test-secret"
@@ -25,7 +25,7 @@ engine = create_engine(
 TestingSessionLocal = sessionmaker(bind=engine)
 
 
-# ✅ RESET DB BEFORE EACH TEST
+# RESET DB BEFORE EACH TEST
 @pytest.fixture(autouse=True)
 def reset_db():
     Base.metadata.drop_all(bind=engine)
@@ -69,7 +69,7 @@ def create_user(client):
 
         res = client.post("/auth/register", json=payload)
 
-        # ✅ FAIL FAST if user not created
+        # FAIL FAST if user not created
         assert res.status_code == 201, res.text
 
         return res.json()
