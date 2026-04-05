@@ -1,123 +1,101 @@
-# Finance Dashboard API
+# Finance Dashboard API 🚀
 
-A role-based backend system for managing financial records and generating dashboard insights.
+A professional, role-based backend system designed to manage financial records and generate real-time dashboard insights. Built with **FastAPI**, this project focuses on clean architecture, secure authentication, and granular Access Control (RBAC).
 
----
-
-## 🚀 Tech Stack
-
-FastAPI · SQLAlchemy · SQLite · JWT · Argon2 · Pydantic · pytest
+**Live Demo:** [finance-dashboard-3aws.onrender.com](https://finance-dashboard-3aws.onrender.com/)  
+**API Documentation:** [/docs](https://finance-dashboard-3aws.onrender.com/docs) (Swagger UI)
 
 ---
 
-## ⚙️ Setup
+## 🛠️ Tech Stack
 
-```bash
-git clone <repo-url>
-cd finance_dashboard
-
-python -m venv env
-source env/bin/activate   # or env\Scripts\activate (Windows)
-
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
-
-Open: http://127.0.0.1:8000
-API Docs: `/docs`
+* **Framework:** FastAPI (Python 3.11)
+* **Database:** SQLite with SQLAlchemy ORM (Architecture ready for PostgreSQL)
+* **Security:** JWT Authentication & Argon2 Password Hashing
+* **Validation:** Pydantic v2
+* **Testing:** Pytest with isolated database sessions
 
 ---
 
-## 🔑 Features
+## 🔐 Role-Based Access Control (RBAC)
 
-* JWT Authentication (login/register)
-* Role-based access control:
+The system enforces strict access boundaries using FastAPI dependency injection to ensure data integrity and security:
 
-  * **Viewer** → read-only
-  * **Analyst** → read + analytics
-  * **Admin** → full access
-* Financial record CRUD
-* Filters (type, category, date)
-* Dashboard APIs:
-
-  * Summary (income, expenses, balance)
-  * Category breakdown
-  * Monthly trends
-  * Recent records
-* Input validation + error handling
-* Unit tests with isolated DB
-
----
-
-## 📁 Structure
-
-```
-database/   → models, DB setup  
-routers/    → API routes  
-schema/     → request/response validation  
-tests/      → unit tests  
-main.py     → app entry  
-```
+| Role | Access Level | Permissions |
+| :--- | :--- | :--- |
+| **Viewer** | Read-Only | Can view records, summaries, and recent activity. |
+| **Analyst** | Insights | All Viewer permissions + Monthly Trends and Category breakdowns. |
+| **Admin** | Full Access | Complete CRUD on records and full User Management (Roles/Status). |
 
 ---
 
 ## 🔌 API Overview
 
-### Auth
+### Authentication
+* `POST /auth/register` - Create a new account.
+* `POST /auth/login` - Exchange credentials for a JWT Bearer token.
+* `GET /auth/me` - Retrieve the current authenticated user's profile.
 
-* `POST /auth/register`
-* `POST /auth/login`
-* `GET /auth/me`
+### Financial Records
+* `GET /records/` - List records with support for Type, Category, and Date range filtering.
+* `POST /records/` - Create a new financial entry (**Admin only**).
+* `GET /records/summary` - Total Income, Expenses, and Net Balance.
+* `GET /records/trends` - Time-series data bucketed by month (**Analyst+**).
+* `GET /records/by-category` - Aggregated spending/income by category (**Analyst+**).
 
-### Records
-
-* `GET /records/` (filters supported)
-* `POST /records/` (admin)
-* `PUT /records/{id}` (admin)
-* `DELETE /records/{id}` (admin)
-* `GET /records/summary`
-* `GET /records/by-category` (analyst+)
-* `GET /records/trends` (analyst+)
-* `GET /records/recent`
-
-### Users (Admin)
-
-* `GET /users/list`
-* `PUT /users/{id}`
-* `DELETE /users/{id}`
+### User Management
+* `GET /users/list` - View all registered users (**Admin only**).
+* `PUT /users/{id}` - Update a user's role or toggle active/inactive status.
+* `DELETE /users/{id}` - Remove a user account and associated records.
 
 ---
 
-## 🔐 Roles
+## 🧠 Technical Assumptions & Decisions
 
-| Role    | Access           |
-| ------- | ---------------- |
-| Viewer  | Read only        |
-| Analyst | Read + analytics |
-| Admin   | Full access      |
-
----
-
-## 🧠 Assumptions
-
-* Data is shared across all users (not user-specific)
-* SQLite used for simplicity
-* Admin role can be assigned during registration (demo purpose)
+* **Organizational Data Scope:** Financial records are treated as shared organizational data visible to authorized roles, simulating a corporate finance environment.
+* **Demo Registration Flow:** For assessment purposes, `Admin` or `Analyst` roles can be claimed during registration by providing a pre-shared `ADMIN_KEY` (configured via Environment Variables).
+* **Input Integrity:** Custom Pydantic validators ensure that `amount` is always positive and categories are sanitized/standardized.
+* **Persistence:** SQLite is utilized for a zero-configuration setup, while the codebase remains database-agnostic via SQLAlchemy.
 
 ---
 
-## 🧪 Tests
+## ⚙️ Setup & Installation
+
+1.  **Clone & Navigate:**
+    ```bash
+    git clone <repo-url>
+    cd finance_dashboard
+    ```
+
+2.  **Environment Setup:**
+    ```bash
+    python -m venv env
+    source env/bin/activate  # Windows: env\Scripts\activate
+    pip install -r requirements.txt
+    ```
+
+3.  **Run Application:**
+    ```bash
+    uvicorn main:app --reload
+    ```
+    Access the local server at `http://127.0.0.1:8000`.
+
+---
+
+## 🧪 Automated Testing
+
+The project includes a comprehensive test suite to verify business logic, security guards, and API responses.
 
 ```bash
 pytest -v
+
 ```
+Note: Tests use an isolated in-memory SQLite instance to ensure the production database remains clean.
 
----
+## 📁 Project Structure
 
-## 💡 Notes
-
-* Easily switch to PostgreSQL via `DATABASE_URL`
-* Designed for clarity, correctness, and maintainability
-* Focused on backend architecture and access control
-
----
+database/   → models, DB setup  
+routers/    → API routes (auth, users, records)  
+schema/     → request/response validation  
+tests/      → unit tests  
+main.py     → app entry  
