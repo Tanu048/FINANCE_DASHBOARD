@@ -66,3 +66,7 @@ class UserLogin(BaseModel):
 
     username: str
     password: str
+    @field_validator("username")
+    @classmethod
+    def normalize_username(cls, v: str) -> str:
+        return v.lower()
